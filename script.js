@@ -93,7 +93,7 @@
 
 // Live data: a Google Apps Script URL that returns
 // { status: "success", data: [ ...participants ], updated: "date text" }.
-const API_URL = "https://script.google.com/macros/s/AKfycby0vjx7Jxeyk6t5B52Ha1d3fXXuKoQ-ckhiPeo7s0KOTW4AvrUpAZXtbN3jo72DhDMZ/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbx4mPoVFCLahR6pi6PkOuDYu-opOf04kjMU4L0Zk8USuQF1_qIR69FnqEsL61fKGTPa/exec";
 const TIMEOUT_MS = 8000;
 
 // Image used for the floating Google Cloud logos
