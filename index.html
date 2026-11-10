@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("tu-theme")||"light"}catch(e){}</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>TU Codes · Study Jam Tracker</title>
+<meta name="description" content="Study Jam progress tracker by TU Codes.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=4"></head><body class="loading">
+<div id="ld" role="status"><div><img class="ldlogo" src="logo.png" alt="" onerror="this.style.display='none'"><div class="ldr"><svg width="170" height="170" viewBox="0 0 170 170"><circle cx="85" cy="85" r="78" fill="none" stroke="#cfe6f0" stroke-width="8"/><circle id="arc" cx="85" cy="85" r="78" fill="none" stroke="#005A9C" stroke-width="8" stroke-linecap="round"/></svg><div id="pc">0%</div></div><p id="qt"></p></div></div>
+<div class="shell" id="top">
+<aside class="side">
+<a class="brand" href="#top" aria-label="TU Codes"><span class="lg"><img src="logo.png" alt="TU Codes logo" onerror="this.remove()"></span><b>TU Codes</b></a>
+<div class="sl">Menu</div>
+<button class="nv on" id="s1"><span data-i="home"></span><span class="t">Overview</span></button>
+<button class="nv" id="s2"><span data-i="users"></span><span class="t">Learners</span></button>
+<button class="nv" id="s3"><span data-i="list"></span><span class="t">Compact view</span></button>
+<button class="nv" id="s4"><span data-i="up"></span><span class="t">Back to top</span></button>
+<div class="pt"><small>Our partner</small><b>GDG On Campus JIST</b></div>
+</aside>
+<main class="mn">
+<div class="mh"><h1>Study Jam Tracker</h1><div class="mr"><button class="round" id="tg" aria-label="Toggle dark mode"></button><button class="round" id="sb" aria-label="Search" data-i="search"></button></div></div>
+
+<!-- ===== NOTICE BOARD: edit the text and timeline items below, then redeploy ===== -->
+<section class="notice" id="notice"><div><span class="tagn">Notice board</span><h2>Time left to complete all labs</h2>
+<div class="cdn" id="cdn"><div class="tm" id="tm"><div><b id="td">--</b><span>days</span></div><div><b id="th">--</b><span>hours</span></div><div><b id="tn">--</b><span>min</span></div><div><b id="ts">--</b><span>sec</span></div></div><em>Deadline: 18 Nov, 11:59 PM IST</em></div></div>
+<ol class="tline"><li><b>Labs with solution</b><a class="btn" href="https://shorturl.at/9tC4n" target="_blank" rel="noopener">View Labs ↗</a></li><li><b>Join the group</b><a class="btn" href="https://chat.whatsapp.com/FAsqFnuh9443bP5e2wyYqj" target="_blank" rel="noopener">Go to Group ↗</a></li></ol></section>
+<!-- ===== END NOTICE BOARD ===== -->
+
+<div class="dash"><div class="c k1" id="k1"></div><div class="c k2" id="k2"></div><div class="c dm" id="dm"></div><div class="c tl" id="tl"></div></div>
+<section id="people"><div class="sh"><h2 class="st">Find your progress</h2><label class="srch"><span data-i="search"></span><input id="q" placeholder="Search your name…" autocomplete="off"></label></div>
+<div class="sels"><label class="sel">Badge:<select id="fg"><option value="all">All</option><option value="gear">GEAR earned</option><option value="no">Not yet</option></select></label>
+<label class="sel">Code:<select id="fc"><option value="all">All</option><option value="red">Redeemed</option><option value="pend">Pending</option></select></label>
+<label class="sel">Sort:<select id="so"><option value="name">A to Z</option><option value="badges">Skill badges</option><option value="gear">GEAR first</option></select></label></div>
+<div class="cnt" id="cnt"></div><div class="grid" id="grid"></div></section>
+<footer><span>Source: Google confirmation list · <b id="asof">…</b></span><span>TU Codes · In partnership with GDG On Campus JIST</span></footer>
+</main></div>
+<script>
+function scriptFail(){var p=document.getElementById("pc"),q=document.getElementById("qt");if(p)p.textContent="!";if(q)q.textContent="script.js did not load. Upload it in the same folder as index.html."}
+setTimeout(function(){var p=document.getElementById("pc");if(p&&p.textContent==="0%")scriptFail()},3000);
+</script>
+<script src="script.js?v=4" onerror="scriptFail()"></script>
+<script>
+(function(){var r=document.documentElement,b=document.getElementById("tg");
+var S='<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">';
+var SUN=S+'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>',MOON=S+'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+function set(t){r.dataset.theme=t;b.innerHTML=t==="dark"?SUN:MOON;b.title=t==="dark"?"Switch to light mode":"Switch to dark mode";try{localStorage.setItem("tu-theme",t)}catch(e){}}
+set(r.dataset.theme==="dark"?"dark":"light");b.onclick=function(){set(r.dataset.theme==="dark"?"light":"dark")};
+var END=new Date("2026-11-18T23:59:00+05:30").getTime(),box=document.getElementById("cdn");
+function p(n){return String(n).padStart(2,"0")}
+function tick(){var d=END-Date.now();if(d<=0){document.getElementById("tm").innerHTML='<div class="up">Time\'s up!</div>';box.classList.add("hot");return}
+document.getElementById("td").textContent=p(Math.floor(d/864e5));document.getElementById("th").textContent=p(Math.floor(d%864e5/36e5));document.getElementById("tn").textContent=p(Math.floor(d%36e5/6e4));document.getElementById("ts").textContent=p(Math.floor(d%6e4/1e3));
+box.classList.toggle("hot",d<864e5);setTimeout(tick,1000)}
+tick()})();
+</script>
+</body></html>
