@@ -22,9 +22,7 @@ function stats(){const t=D.length,g=D.filter(x=>x.gear).length,r=D.filter(x=>x.r
 const two=(a,al,b,bl)=>`<div class="two"><div><i class="tri"></i><b>${a}</b><small>${al}</small></div><div><i class="tri dn"></i><b>${b}</b><small>${bl}</small></div></div>`;
 $("#k1").innerHTML="<h3>Learners</h3>"+two(g,"GEAR badge",t-g,"Not yet");
 $("#k2").innerHTML="<h3>Access codes</h3>"+two(r,"Redeemed",t-r,"Pending");
-$("#dm").innerHTML=`<h3>Learner map · ${t} confirmed</h3><div class="dots">${D.map(x=>`<i class="d ${cls(x)}" data-n="${esc(x.n)}" title="${esc(x.n)}"></i>`).join("")}</div><div class="lg2"><span><i class="d w"></i>Code redeemed</span><span><i class="d l"></i>GEAR badge</span><span><i class="d o"></i>No badge yet</span></div>`;
 const st=[["Confirmed",t,"l"],["GEAR badge earned",g,"o"],["Code redeemed",r,"w"],["Skill badges started",sd,"l"],["Milestone reached",ms,"o"]];
-$("#tl").innerHTML="<h3>Progress</h3>"+st.map(([l,v,c])=>`<div class="tr"><span>${l}</span><div class="trk"><div class="bp ${c}" data-w="${pct(v,t)}"><em style="font-style:normal">${v}</em></div></div></div>`).join("")+`<div class="tot">Total: ${t}</div>`;
 setTimeout(()=>document.querySelectorAll("[data-w]").forEach(e=>e.style.width=e.dataset.w+"%"),200)}
 function list(){let L=D.filter(x=>x.n.toLowerCase().includes(q)&&(fg=="all"||(fg=="gear")==x.gear)&&(fc=="all"||(fc=="red")==x.r));
 L.sort((a,b)=>so=="badges"?b.c-a.c||a.n.localeCompare(b.n):so=="gear"?(b.gear-a.gear)||a.n.localeCompare(b.n):a.n.localeCompare(b.n));
