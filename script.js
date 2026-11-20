@@ -12,7 +12,8 @@ requestAnimationFrame(tick)}requestAnimationFrame(tick)})();
 /* ---------- App ---------- */
 const API_URL="https://script.google.com/macros/s/AKfycbx4mPoVFCLahR6pi6PkOuDYu-opOf04kjMU4L0Zk8USuQF1_qIR69FnqEsL61fKGTPa/exec";/* Apps Script JSON endpoint returning {status:"success",updated:"…",data:[…]} */
 const TIMEOUT_MS=8000;
-let D=[],q="",fg="all",fc="all",so="name";
+const LABS_TOTAL=10;/* skill badges needed to count as "Completed" */
+let D=[],q="",fg="all",fc="all",so="name",fd=false;
 const $=s=>document.querySelector(s),esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 const IC={home:'<path d="M3 11 12 4l9 7v9H3z"/>',users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-4 3.4-6 6.5-6s5.7 2 6.5 6M16 5.5a3.2 3.2 0 0 1 0 6M18 14.5c2 .7 3.2 2.5 3.5 5.5"/>',list:'<path d="M4 6h16M4 12h16M4 18h10"/>',up:'<path d="M12 19V5M5 12l7-7 7 7"/>',search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>'};
 document.querySelectorAll("[data-i]").forEach(e=>e.innerHTML=`<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${IC[e.dataset.i]}</svg>`);
@@ -24,7 +25,7 @@ $("#k1").innerHTML="<h3>Learners</h3>"+two(g,"GEAR badge",t-g,"Not yet");
 $("#k2").innerHTML="<h3>Access codes</h3>"+two(r,"Redeemed",t-r,"Pending");
 const st=[["Confirmed",t,"l"],["GEAR badge earned",g,"o"],["Code redeemed",r,"w"],["Skill badges started",sd,"l"],["Milestone reached",ms,"o"]];
 setTimeout(()=>document.querySelectorAll("[data-w]").forEach(e=>e.style.width=e.dataset.w+"%"),200)}
-function list(){let L=D.filter(x=>x.n.toLowerCase().includes(q)&&(fg=="all"||(fg=="gear")==x.gear)&&(fc=="all"||(fc=="red")==x.r));
+function list(){let L=D.filter(x=>x.n.toLowerCase().includes(q)&&(fg=="all"||(fg=="gear")==x.gear)&&(fc=="all"||(fc=="red")==x.r)&&(!fd||x.c>=LABS_TOTAL));
 L.sort((a,b)=>so=="badges"?b.c-a.c||a.n.localeCompare(b.n):so=="gear"?(b.gear-a.gear)||a.n.localeCompare(b.n):a.n.localeCompare(b.n));
 $("#cnt").textContent=`Showing ${L.length} of ${D.length}`;
 $("#grid").innerHTML=L.length?L.map(x=>`<article class="cd"><div class="hd"><div class="av ${cls(x)}">${esc(ini(x.n))}</div><div><div class="nm">${esc(x.n)}</div><div class="ix">#${String(D.indexOf(x)+1).padStart(2,"0")}</div></div></div>
@@ -32,8 +33,8 @@ $("#grid").innerHTML=L.length?L.map(x=>`<article class="cd"><div class="hd"><div
 <div class="mt"><div><small>Milestone</small><b>${esc(x.m)}</b></div><div><small>Skill badges</small><b>${x.c}</b></div><div><small>Skills profile</small><b>${esc(x.sp)}</b></div><div><small>Developer profile</small><b>${esc(x.dp)}</b></div></div>
 <div class="seg">${Array.from({length:8},(_,i)=>`<i class="${i<x.c?"on":""}"></i>`).join("")}</div>
 ${x.b.length?`<details><summary>${x.c} skill badge${x.c>1?"s":""}</summary><ul>${x.b.map(b=>`<li>${esc(b)}</li>`).join("")}</ul></details>`:""}
-<div class="lk">${x.su?`<a href="${esc(x.su)}" target="_blank" rel="noopener">Skills profile ↗</a>`:""}${x.du?`<a href="${esc(x.du)}" target="_blank" rel="noopener">Developer ↗</a>`:""}</div></article>`).join(""):`<div class="empty">No learners match that search.</div>`}
-function init(){stats();list()}
+<div class="lk">${x.su?`<a href="${esc(x.su)}" target="_blank" rel="noopener">Skills profile ↗</a>`:""}${x.du?`<a href="${esc(x.du)}" target="_blank" rel="noopener">Developer ↗</a>`:""}</div></article>`).join(""):`<div class="empty">${fd?"No one has completed all "+LABS_TOTAL+" labs yet.":"No learners match that search."}</div>`}
+function init(){stats();$("#fd").innerHTML="✓ Completed <span>"+D.filter(x=>x.c>=LABS_TOTAL).length+"</span>";list()}
 
 /* ---------- Data loading (no fallback: shows an error if the API fails) ---------- */
 function showError(msg){
@@ -64,6 +65,7 @@ async function load(){
 const go=id=>$(id).scrollIntoView({behavior:"smooth"});
 $("#q").oninput=e=>{q=e.target.value.trim().toLowerCase();if(D.length)list()};
 $("#fg").onchange=e=>{fg=e.target.value;if(D.length)list()};$("#fc").onchange=e=>{fc=e.target.value;if(D.length)list()};$("#so").onchange=e=>{so=e.target.value;if(D.length)list()};
+$("#fd").onclick=()=>{fd=!fd;$("#fd").classList.toggle("on",fd);$("#fd").setAttribute("aria-pressed",fd);if(D.length)list()};
 $("#sb").onclick=()=>{go("#people");setTimeout(()=>$("#q").focus({preventScroll:true}),500)};
 $("#s1").onclick=$("#s4").onclick=()=>scrollTo({top:0,behavior:"smooth"});$("#s2").onclick=()=>go("#people");$("#s3").onclick=()=>$("#people").classList.toggle("cp");
 $("#dm").onclick=e=>{const d=e.target.closest(".d[data-n]");if(!d)return;$("#q").value=d.dataset.n;q=d.dataset.n.toLowerCase();list();go("#people")};
@@ -75,5 +77,4 @@ let current=scrollY,target=scrollY,frame=0;const maxScroll=()=>document.document
 function animate(){current+=(target-current)*.12;if(Math.abs(target-current)<.5){current=target;jumpTo(current);frame=0;return}jumpTo(current);frame=requestAnimationFrame(animate)}
 addEventListener("wheel",e=>{if(e.ctrlKey||document.body.classList.contains("loading"))return;e.preventDefault();if(!frame)current=target=scrollY;const delta=e.deltaY*(e.deltaMode===1?32:1);target=Math.max(0,Math.min(maxScroll(),target+delta));if(!frame)frame=requestAnimationFrame(animate)},{passive:false});
 addEventListener("scroll",()=>{if(!frame)current=target=scrollY},{passive:true})})();
-
 load();
