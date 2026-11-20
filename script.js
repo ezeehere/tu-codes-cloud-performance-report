@@ -34,7 +34,7 @@ $("#grid").innerHTML=L.length?L.map(x=>`<article class="cd"><div class="hd"><div
 <div class="seg">${Array.from({length:8},(_,i)=>`<i class="${i<x.c?"on":""}"></i>`).join("")}</div>
 ${x.b.length?`<details><summary>${x.c} skill badge${x.c>1?"s":""}</summary><ul>${x.b.map(b=>`<li>${esc(b)}</li>`).join("")}</ul></details>`:""}
 <div class="lk">${x.su?`<a href="${esc(x.su)}" target="_blank" rel="noopener">Skills profile ↗</a>`:""}${x.du?`<a href="${esc(x.du)}" target="_blank" rel="noopener">Developer ↗</a>`:""}</div></article>`).join(""):`<div class="empty">${fd?"No one has completed all "+LABS_TOTAL+" labs yet.":"No learners match that search."}</div>`}
-function init(){stats();$("#fd").innerHTML="✓ Completed <span>"+D.filter(x=>x.c>=LABS_TOTAL).length+"</span>";list()}
+function init(){stats();$("#fd").innerHTML="Completed <span>"+D.filter(x=>x.c>=LABS_TOTAL).length+"</span>";list()}
 
 /* ---------- Data loading (no fallback: shows an error if the API fails) ---------- */
 function showError(msg){
