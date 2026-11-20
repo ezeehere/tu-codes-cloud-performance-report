@@ -111,6 +111,11 @@ footer{margin-top:40px;padding-top:20px;border-top:1px solid rgba(23,20,15,.1);d
 [data-theme=dark] footer{border-color:rgba(255,255,255,.1)}
 [data-theme=dark] #ld{background:linear-gradient(135deg,#0b1626,#07101c)}[data-theme=dark] #ld circle:first-child{stroke:#1c3550}[data-theme=dark] #pc{color:#a0e0ef}
 @media(max-width:600px){.tm div{min-width:60px}.tm b{font-size:25px}}
+.cmp{height:46px;padding:0 20px;border-radius:99px;border:1px solid rgba(23,20,15,.08);background:rgba(255,255,255,.75);color:var(--ink);font:600 14px Figtree;cursor:pointer;white-space:nowrap;transition:.2s;flex:none}
+.cmp:hover{background:#fff}.cmp.on{background:var(--pur);color:#fff;border-color:var(--pur)}
+.cmp span{background:rgba(0,90,156,.12);border-radius:99px;padding:2px 9px;margin-left:6px;font-size:12px}.cmp.on span{background:rgba(255,255,255,.25)}
+[data-theme=dark] .cmp{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.1)}
+[data-theme=dark] .cmp:hover{background:rgba(255,255,255,.12)}[data-theme=dark] .cmp.on{background:#60C1E5;color:#0b1626;border-color:#60C1E5}
 .btn{display:inline-flex;align-items:center;gap:8px;margin-top:6px;background:var(--ink);color:#fff;text-decoration:none;font-weight:700;font-size:14px;padding:10px 20px;border-radius:99px;transition:.2s}.btn:hover{background:var(--pur);transform:translateY(-1px)}
 [data-theme=dark] .btn{background:#eaf6fb;color:#0b1626}[data-theme=dark] .btn:hover{background:#60C1E5;color:#0b1626}
 
